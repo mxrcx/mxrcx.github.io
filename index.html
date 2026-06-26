@@ -1,1 +1,464 @@
-Hello World
+<!DOCTYPE html>
+<html lang="de" data-theme="auto">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Marco Schaarschmidt — Portfolio</title>
+<meta name="description" content="Marco Schaarschmidt — Forschung & Software an der Schnittstelle von Data Science und Gesundheit." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Marco Schaarschmidt — Portfolio" />
+<meta property="og:description" content="Forschung & Software an der Schnittstelle von Data Science und Gesundheit." />
+<meta property="og:type" content="website" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+  :root {
+    --max-width: 880px;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-display: 'Space Grotesk', var(--font-sans);
+
+    /* Light theme (default) */
+    --bg: #fbfbfd;
+    --bg-soft: #ffffff;
+    --bg-elev: #ffffff;
+    --text: #16181d;
+    --text-muted: #5b616e;
+    --border: #e7e8ec;
+    --accent: #4f46e5;
+    --accent-soft: #eef0ff;
+    --shadow: 0 1px 2px rgba(16,18,29,.04), 0 8px 24px rgba(16,18,29,.06);
+    --shadow-hover: 0 2px 4px rgba(16,18,29,.06), 0 14px 36px rgba(16,18,29,.10);
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #0c0d10;
+    --bg-soft: #131418;
+    --bg-elev: #16181d;
+    --text: #f2f3f5;
+    --text-muted: #9aa0ad;
+    --border: #25272e;
+    --accent: #8b8cff;
+    --accent-soft: #1c1d2e;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+    --shadow-hover: 0 2px 4px rgba(0,0,0,.35), 0 14px 36px rgba(0,0,0,.5);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root[data-theme="auto"] {
+      --bg: #0c0d10;
+      --bg-soft: #131418;
+      --bg-elev: #16181d;
+      --text: #f2f3f5;
+      --text-muted: #9aa0ad;
+      --border: #25272e;
+      --accent: #8b8cff;
+      --accent-soft: #1c1d2e;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.35);
+      --shadow-hover: 0 2px 4px rgba(0,0,0,.35), 0 14px 36px rgba(0,0,0,.5);
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    transition: background .3s ease, color .3s ease;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  .wrap { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- Header ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(180%) blur(12px);
+    background: color-mix(in srgb, var(--bg) 82%, transparent);
+    border-bottom: 1px solid transparent;
+    transition: border-color .3s ease;
+  }
+  header.scrolled { border-bottom-color: var(--border); }
+  .nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    font-family: var(--font-display);
+    font-weight: 700; font-size: 1.05rem; letter-spacing: -.02em;
+  }
+  .brand span { color: var(--accent); }
+  .nav-links { display: flex; align-items: center; gap: 28px; }
+  .nav-links a {
+    color: var(--text-muted); font-size: .92rem; font-weight: 500;
+    transition: color .2s ease;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .theme-toggle {
+    display: grid; place-items: center;
+    width: 38px; height: 38px; border-radius: 10px;
+    border: 1px solid var(--border); background: var(--bg-elev);
+    color: var(--text); cursor: pointer;
+    transition: background .2s ease, transform .15s ease, border-color .2s ease;
+  }
+  .theme-toggle:hover { transform: translateY(-1px); border-color: var(--accent); }
+  .theme-toggle svg { width: 18px; height: 18px; }
+  .theme-toggle .sun { display: none; }
+  :root[data-theme="dark"] .theme-toggle .sun { display: block; }
+  :root[data-theme="dark"] .theme-toggle .moon { display: none; }
+  @media (prefers-color-scheme: dark) {
+    :root[data-theme="auto"] .theme-toggle .sun { display: block; }
+    :root[data-theme="auto"] .theme-toggle .moon { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .nav-links a { display: none; }
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: 88px 0; }
+  .eyebrow {
+    font-size: .8rem; font-weight: 600; letter-spacing: .08em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
+  }
+  h2 {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 2.1rem); font-weight: 700;
+    letter-spacing: -.02em; margin-bottom: 18px;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero { padding: 96px 0 72px; position: relative; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: -20% 30% auto -10%;
+    height: 420px; pointer-events: none;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--accent) 22%, transparent), transparent);
+    opacity: .55; filter: blur(8px); z-index: -1;
+  }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: var(--accent-soft); color: var(--accent);
+    font-size: .85rem; font-weight: 600; margin-bottom: 26px;
+  }
+  .badge .dot {
+    width: 8px; height: 8px; border-radius: 50%; background: #22c55e;
+    box-shadow: 0 0 0 3px color-mix(in srgb, #22c55e 25%, transparent);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.3rem, 7vw, 3.6rem); font-weight: 700;
+    line-height: 1.08; letter-spacing: -.03em; margin-bottom: 22px;
+  }
+  .hero h1 .grad {
+    background: linear-gradient(120deg, var(--accent), #ec4899);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .hero p.lead {
+    font-size: clamp(1.05rem, 2.4vw, 1.22rem); color: var(--text-muted);
+    max-width: 560px; margin-bottom: 34px;
+  }
+  .cta-row { display: flex; flex-wrap: wrap; gap: 14px; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 22px; border-radius: 12px; font-weight: 600; font-size: .95rem;
+    cursor: pointer; border: 1px solid transparent;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+  }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: var(--shadow); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--shadow-hover); }
+  .btn-ghost { background: var(--bg-elev); color: var(--text); border-color: var(--border); }
+  .btn-ghost:hover { transform: translateY(-2px); border-color: var(--accent); }
+
+  /* ---------- About / Stats ---------- */
+  .about-grid {
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start;
+  }
+  .about-grid p { color: var(--text-muted); margin-bottom: 16px; }
+  .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .stat {
+    background: var(--bg-elev); border: 1px solid var(--border); border-radius: 16px;
+    padding: 22px 20px; box-shadow: var(--shadow);
+  }
+  .stat .num {
+    font-family: var(--font-display); font-size: 1.8rem; font-weight: 700;
+    color: var(--accent); line-height: 1;
+  }
+  .stat .label { font-size: .85rem; color: var(--text-muted); margin-top: 6px; }
+  @media (max-width: 720px) { .about-grid { grid-template-columns: 1fr; gap: 32px; } }
+
+  /* ---------- Projects ---------- */
+  .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  @media (max-width: 720px) { .projects { grid-template-columns: 1fr; } }
+  .card {
+    background: var(--bg-elev); border: 1px solid var(--border); border-radius: 18px;
+    padding: 26px; box-shadow: var(--shadow);
+    transition: transform .2s ease, box-shadow .25s ease, border-color .2s ease;
+    display: flex; flex-direction: column;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); border-color: color-mix(in srgb, var(--accent) 40%, var(--border)); }
+  .card .icon {
+    width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center;
+    background: var(--accent-soft); color: var(--accent); margin-bottom: 18px;
+  }
+  .card .icon svg { width: 22px; height: 22px; }
+  .card h3 { font-family: var(--font-display); font-size: 1.15rem; font-weight: 600; margin-bottom: 8px; }
+  .card p { color: var(--text-muted); font-size: .94rem; margin-bottom: 18px; flex: 1; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .tag {
+    font-size: .76rem; font-weight: 600; padding: 4px 10px; border-radius: 999px;
+    background: var(--bg-soft); border: 1px solid var(--border); color: var(--text-muted);
+  }
+  .card-link { font-size: .9rem; font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 6px; }
+  .card-link svg { width: 15px; height: 15px; transition: transform .2s ease; }
+  .card:hover .card-link svg { transform: translate(2px,-2px); }
+
+  /* ---------- Skills ---------- */
+  .skill-groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 720px) { .skill-groups { grid-template-columns: 1fr; } }
+  .skill-group {
+    background: var(--bg-elev); border: 1px solid var(--border); border-radius: 16px; padding: 22px;
+  }
+  .skill-group h4 { font-size: .82rem; text-transform: uppercase; letter-spacing: .06em; color: var(--text-muted); margin-bottom: 14px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chip {
+    font-size: .86rem; font-weight: 500; padding: 6px 12px; border-radius: 8px;
+    background: var(--bg-soft); border: 1px solid var(--border);
+  }
+
+  /* ---------- Contact ---------- */
+  .contact { text-align: center; }
+  .contact .wrap > p { color: var(--text-muted); max-width: 480px; margin: 0 auto 28px; }
+  .social { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+  .social a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 18px; border-radius: 12px; font-weight: 500; font-size: .92rem;
+    background: var(--bg-elev); border: 1px solid var(--border);
+    transition: transform .15s ease, border-color .2s ease;
+  }
+  .social a:hover { transform: translateY(-2px); border-color: var(--accent); }
+  .social svg { width: 18px; height: 18px; }
+
+  /* ---------- Footer ---------- */
+  footer {
+    border-top: 1px solid var(--border); padding: 32px 0;
+    color: var(--text-muted); font-size: .88rem; text-align: center;
+  }
+
+  /* ---------- Reveal animation ---------- */
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+</head>
+<body>
+
+<header id="header">
+  <div class="wrap nav">
+    <a href="#" class="brand">marco<span>.</span></a>
+    <nav class="nav-links">
+      <a href="#about">Über mich</a>
+      <a href="#projects">Projekte</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Kontakt</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Theme wechseln">
+        <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="badge"><span class="dot"></span> Offen für Kollaborationen</span>
+      <h1>Marco Schaarschmidt<br><span class="grad">Forschung & Software</span></h1>
+      <p class="lead">Ich arbeite an der Schnittstelle von Data Science und Gesundheit — von reproduzierbarer Forschung bis zu Tools, die im Alltag wirklich helfen.</p>
+      <div class="cta-row">
+        <a href="#projects" class="btn btn-primary">Projekte ansehen
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a href="#contact" class="btn btn-ghost">Kontakt aufnehmen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="reveal">
+          <p class="eyebrow">Über mich</p>
+          <h2>Neugier trifft auf saubere Umsetzung</h2>
+          <p>Ich bin Forscher und Entwickler mit Fokus auf datengetriebene Fragestellungen im Gesundheitsbereich. Mich begeistert es, komplexe Daten in verständliche Erkenntnisse und nutzbare Werkzeuge zu übersetzen.</p>
+          <p>Ob Analyse-Pipelines, Modelle oder kleine Tools — mir ist wichtig, dass Ergebnisse reproduzierbar, gut dokumentiert und für andere nachvollziehbar sind. Aktuell tätig am Berlin Institute of Health (BIH) der Charité.</p>
+        </div>
+        <div class="stats reveal">
+          <div class="stat"><div class="num">5+</div><div class="label">Jahre Erfahrung</div></div>
+          <div class="stat"><div class="num">10+</div><div class="label">Projekte</div></div>
+          <div class="stat"><div class="num">∞</div><div class="label">Tassen Kaffee</div></div>
+          <div class="stat"><div class="num">OSS</div><div class="label">Open Source first</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="wrap">
+      <p class="eyebrow">Auswahl</p>
+      <h2>Projekte &amp; Forschung</h2>
+      <div class="projects">
+
+        <article class="card reveal">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l3-3 3 3 5-6"/></svg></div>
+          <h3>Data-Science-Pipeline</h3>
+          <p>End-to-End-Pipeline für die Aufbereitung und Analyse klinischer Daten — reproduzierbar, getestet und versioniert.</p>
+          <div class="tags"><span class="tag">Python</span><span class="tag">Pandas</span><span class="tag">ML</span></div>
+          <a class="card-link" href="https://github.com/mxrcx" target="_blank" rel="noopener">Mehr erfahren
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </article>
+
+        <article class="card reveal">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2z"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20"/></svg></div>
+          <h3>Forschungs-Publikation</h3>
+          <p>Peer-reviewte Arbeit zu datengetriebenen Methoden im Gesundheitskontext — inkl. offen geteiltem Code.</p>
+          <div class="tags"><span class="tag">Research</span><span class="tag">Statistics</span></div>
+          <a class="card-link" href="#" target="_blank" rel="noopener">Paper lesen
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </article>
+
+        <article class="card reveal">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg></div>
+          <h3>Open-Source-Tool</h3>
+          <p>Ein kleines Werkzeug, das wiederkehrende Aufgaben automatisiert und das Leben der Community leichter macht.</p>
+          <div class="tags"><span class="tag">TypeScript</span><span class="tag">CLI</span></div>
+          <a class="card-link" href="https://github.com/mxrcx" target="_blank" rel="noopener">Auf GitHub
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </article>
+
+        <article class="card reveal">
+          <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+          <h3>Interaktives Dashboard</h3>
+          <p>Visualisierung komplexer Ergebnisse in einem zugänglichen, interaktiven Web-Dashboard für Stakeholder.</p>
+          <div class="tags"><span class="tag">Viz</span><span class="tag">Web</span></div>
+          <a class="card-link" href="#" target="_blank" rel="noopener">Demo ansehen
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M7 7h10v10"/></svg></a>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="wrap">
+      <p class="eyebrow">Werkzeugkasten</p>
+      <h2>Skills &amp; Technologien</h2>
+      <div class="skill-groups">
+        <div class="skill-group reveal">
+          <h4>Sprachen</h4>
+          <div class="chips">
+            <span class="chip">Python</span><span class="chip">R</span>
+            <span class="chip">TypeScript</span><span class="chip">SQL</span><span class="chip">Bash</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>Data &amp; ML</h4>
+          <div class="chips">
+            <span class="chip">Pandas</span><span class="chip">scikit-learn</span>
+            <span class="chip">PyTorch</span><span class="chip">Statistik</span>
+          </div>
+        </div>
+        <div class="skill-group reveal">
+          <h4>Tools</h4>
+          <div class="chips">
+            <span class="chip">Git</span><span class="chip">Docker</span>
+            <span class="chip">Linux</span><span class="chip">CI/CD</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="wrap">
+      <p class="eyebrow">Kontakt</p>
+      <h2>Lass uns sprechen</h2>
+      <p>Du hast ein spannendes Projekt, eine Forschungsidee oder einfach eine Frage? Ich freue mich über Nachrichten.</p>
+      <div class="social">
+        <a href="mailto:marco.schaarschmidt@bih-charite.de">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>
+          E-Mail
+        </a>
+        <a href="https://github.com/mxrcx" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.6 18 4.9 18 4.9c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+          GitHub
+        </a>
+        <a href="https://www.linkedin.com/in/marco-schaarschmidt/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3zM9 9h3.8v1.7h.1c.5-1 1.8-2 3.7-2 4 0 4.7 2.6 4.7 6V21h-4v-5.3c0-1.3 0-2.9-1.8-2.9s-2 1.4-2 2.8V21H9z"/></svg>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    © <span id="year"></span> Marco Schaarschmidt · Gebaut mit ❤️ und purem HTML/CSS
+  </div>
+</footer>
+
+<script>
+  // --- Theme toggle: schaltet zwischen hell und dunkel, merkt sich die Wahl ---
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  if (saved) root.setAttribute('data-theme', saved);
+
+  function currentEffective() {
+    const t = root.getAttribute('data-theme');
+    if (t === 'auto') return matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    return t;
+  }
+  toggle.addEventListener('click', () => {
+    const next = currentEffective() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+  });
+
+  // --- Header bekommt beim Scrollen eine Trennlinie ---
+  const header = document.getElementById('header');
+  const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // --- Elemente beim Scrollen einblenden ---
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // --- Jahr im Footer ---
+  document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
